@@ -11,7 +11,8 @@ const getAllOrders = async () => {
 };
 
 const getOrdersByEmail = async (email: string) => {
-  return await Order.find({ email }).exec();
+  return await Order.find({ email });
+  //   return await Order.find({ email }).exec();
 };
 
 export const orderService = {
