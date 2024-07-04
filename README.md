@@ -1,6 +1,6 @@
 # Stock Management
 
-# Live Server Link: https://a-1-three.vercel.app/
+# Live Server Link: https://stcok-management-a-1-three.vercel.app/
 
 ## Installation
 

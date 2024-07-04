@@ -6,8 +6,8 @@ import notFoundRoute from './middlewares/notFoundRoute';
 
 const app: Application = express();
 
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
 app.use('/api/products', ProductRoutes);
 app.use('/api/orders', OrderRoutes);
