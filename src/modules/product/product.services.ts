@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { TProduct } from './product.interface';
 import { Product } from './product.model';
@@ -31,10 +32,7 @@ const getSingleProductFromDB = async (productId: string) => {
   return result;
 };
 
-const updateSingleProductInDB = async (
-  productId: string,
-  updateData: Partial<TProduct>,
-) => {
+const updateSingleProductInDB = async (productId: string, updateData: any) => {
   const productExists = await Product.findById(productId);
 
   if (productExists) {

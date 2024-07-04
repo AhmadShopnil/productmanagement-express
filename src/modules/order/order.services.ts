@@ -35,7 +35,6 @@ const createOrder = async (orderData: TOrder) => {
 
 const getAllOrders = async (email?: string | undefined) => {
   let query = {};
-
   if (email) {
     query = { email: email };
   }

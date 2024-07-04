@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import { ProductRoutes } from './modules/product/product.routes';
 import { OrderRoutes } from './modules/order/order.routes';
+import notFoundRoute from './middlewares/notFoundRoute';
 
 const app: Application = express();
 
@@ -17,5 +18,7 @@ app.get('/', (req: Request, res: Response) => {
     message: 'Product management server running successfully',
   });
 });
+
+app.use(notFoundRoute);
 
 export default app;

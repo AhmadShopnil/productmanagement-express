@@ -1,16 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
 import { productService } from './product.services';
+import { ProductValidations } from './product.validation';
 
 const createProduct = async (req: Request, res: Response) => {
   try {
     const productData = req.body;
 
     // Validate the product data using the validation schema
-    // const validatedData = productValidationSchema.parse(productData);
+    const validatedData =
+      ProductValidations.createProductValidationSchema.parse(productData);
 
     // Call the service to create the product in the database
-    const result = await productService.createProductInDB(productData);
+    const result = await productService.createProductInDB(validatedData);
     res.status(200).json({
       success: true,
       message: 'Product successfully created',
@@ -87,9 +89,13 @@ const updateSingleProduct = async (req: Request, res: Response) => {
     const { productId } = req.params;
     const updateData = req.body;
 
+    // Validate the product data using the validation schema
+    const validatedData =
+      ProductValidations.updateProductValidationSchema.parse(updateData);
+
     const result = await productService.updateSingleProductInDB(
       productId,
-      updateData,
+      validatedData,
     );
 
     res.status(200).json({
