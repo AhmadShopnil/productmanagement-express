@@ -14,8 +14,15 @@ const createOrder = async (orderData: TOrder) => {
   }
 
   // Check if sufficient quantity is available
-  if (product?.inventory?.quantity < quantity) {
+  if (
+    product?.inventory?.quantity < quantity ||
+    product?.inventory?.inStock === false
+  ) {
     throw new Error('Insufficient quantity in stock');
+  }
+  // Check if quantity is zero to update inStock
+  if (product.inventory.quantity === quantity) {
+    product.inventory.inStock = false;
   }
 
   // Update product quantity
@@ -41,13 +48,7 @@ const getAllOrders = async (email?: string | undefined) => {
   return orderList;
 };
 
-const getOrdersByEmail = async (email: string) => {
-  return await Order.find({ email });
-  //   return await Order.find({ email }).exec();
-};
-
 export const orderService = {
   createOrder,
   getAllOrders,
-  getOrdersByEmail,
 };

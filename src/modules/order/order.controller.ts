@@ -48,34 +48,7 @@ const getAllOrders = async (req: Request, res: Response) => {
   }
 };
 
-const getOrdersByEmail = async (req: Request, res: Response) => {
-  try {
-    const { email } = req.query;
-    if (typeof email !== 'string') {
-      throw new Error('Invalid email format');
-    }
-
-    const orders = await orderService.getOrdersByEmail(email);
-
-    res.status(200).json({
-      success: true,
-      message: `Orders fetched successfully for email: ${email}`,
-      data: orders,
-    });
-  } catch (error: any) {
-    res.status(500).json({
-      success: false,
-      message: 'Failed to fetch orders by email',
-      error: {
-        code: 500,
-        description: error.message,
-      },
-    });
-  }
-};
-
 export const orderController = {
   createOrder,
   getAllOrders,
-  getOrdersByEmail,
 };
