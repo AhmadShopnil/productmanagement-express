@@ -14,11 +14,18 @@ const createProductInDB = async (product: TProduct) => {
   return result;
 };
 
-const getAllProductsFromDB = async () => {
-  const result = await Product.find();
+const getAllProductsFromDB = async (
+  searchTerm?: string,
+): Promise<TProduct[]> => {
+  let query = {};
+
+  if (searchTerm) {
+    query = { tags: { $in: [searchTerm] } };
+  }
+
+  const result = await Product.find(query);
   return result;
 };
-
 const getSingleProductFromDB = async (productId: string) => {
   const result = await Product.findById({ _id: productId });
   return result;

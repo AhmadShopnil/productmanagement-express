@@ -30,16 +30,18 @@ const createProduct = async (req: Request, res: Response) => {
 
 const getAllProducts = async (req: Request, res: Response) => {
   try {
-    const result = await productService.getAllProductsFromDB();
+    const searchTerm = req.query.searchTerm as string | undefined;
+    const products = await productService.getAllProductsFromDB(searchTerm);
+
     res.status(200).json({
       success: true,
-      message: 'Products fetched successfully',
-      data: result,
+      message: 'Products fetched successfully!',
+      data: products,
     });
   } catch (error: any) {
     res.status(500).json({
       success: false,
-      message: 'Failed to get all products',
+      message: 'Failed to fetch products',
       error: {
         code: 500,
         description: error?.message,
@@ -47,7 +49,6 @@ const getAllProducts = async (req: Request, res: Response) => {
     });
   }
 };
-
 const getSingleProduct = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
@@ -111,12 +112,12 @@ const updateSingleProduct = async (req: Request, res: Response) => {
 const deleteSingleProduct = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
-    const result = await productService.deleteSingleProductInDB(productId);
+    await productService.deleteSingleProductInDB(productId);
 
     res.status(200).json({
       success: true,
       message: 'Product successfully deleted',
-      data: result,
+      data: null,
     });
   } catch (error: any) {
     res.status(500).json({
